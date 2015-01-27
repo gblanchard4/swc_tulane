@@ -1,22 +1,38 @@
 ---
-title: "Whoafile"
-author: "Gene"
+title: "Knit"
+author: "Gene Blanchard"
 date: "January 27, 2015"
-output: word_document
+output: html_document
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
 ```{r}
-summary(cars)
+library("ggplot2")
+gap.in <- read.table("output//combined_gapMinder.tsv", header = TRUE, sep = "\t")
 ```
 
-You can also embed plots, for example:
+Subset the countries  
 
-```{r, echo=FALSE}
-plot(cars)
+* Australia
+```{r}
+aus <- subset(gap.in, country == "Australia")
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+* New Zealand
+```{r}
+nz <- subset(gap.in, country == "New Zealand")
+```
+* Ireland
+```{r}
+ire <- subset(gap.in, country == "Ireland")
+```
+Plot Australia 
+```{r}
+ggplot(data=aus, aes(x= year, y= gdpPercap, color = year)) + geom_point(size = 3)
+```
+Plot New Zealand
+```{r}
+ggplot(data=nz, aes(x= year, y= gdpPercap, color = year)) + geom_point(size = 3)
+```
+Plot Ireland
+```{r}
+ggplot(data=ire, aes(x= year, y= gdpPercap, color = year)) + geom_point(size = 3)
+```
